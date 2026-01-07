@@ -1,0 +1,62 @@
+
+
+.taskflow {
+  width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 2px solid #000;
+  border-radius: 12px;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto 120px;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 12px;
+}
+
+
+.header {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+
+.label-title {
+  grid-column: 1;
+  
+}
+.input-title {
+  grid-column: 2;
+}
+
+.label-priority {
+  grid-column: 3;
+}
+.input-priority {
+  grid-column: 4;
+}
+
+
+.label-desc {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.input-desc {
+  grid-column: 2 / -1;
+  grid-row: 3 / 5;
+  min-height: 120px;
+  resize: none;
+}
+
+
+.btn-create {
+  grid-column: 1 / -1;
+  justify-self: center;
+  padding: 8px 24px;
+  background: #9be7a5;
+  border: 2px solid #000;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
