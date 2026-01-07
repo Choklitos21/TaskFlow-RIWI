@@ -1,0 +1,86 @@
+body{
+    .filter{
+        #btn{
+            ul{
+            z-index: 1;
+            }
+        }
+    }
+}
+
+
+
+
+.container .cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    text-align: center;
+
+    .card {
+        border: solid 1px;
+        padding: 40px;
+        border-radius: 20px;
+        margin-top: 15px;
+
+    }
+}
+
+.cards {
+    .priority {
+        color: red;
+    }
+
+    #status {
+        background-color: white;
+        border-radius: 10px;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    #delete {
+        background-color: red;
+        border-radius: 10px;
+        padding: 5px;
+        cursor: pointer;
+
+    }
+
+    .more_task {
+        border: solid 1px;
+        border-radius: 20px;
+        background-color: pink;
+        margin-top: 10px;
+        padding: 10px;
+        text-align: center;
+        font-family: 'Courier New', Courier, monospace;
+
+        .btn {
+            padding: 0px 20px;
+            font-size: 30px;
+            border-radius: 20px;
+            border: none;
+            text-shadow: 10px;
+            background-color: white;
+            cursor: pointer;
+
+        }
+
+        .btn:hover {
+            transition: 120ms;
+            background-color: green;
+        }
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+
+    .more_task {
+        background-color: white;
+        border: none;
+        padding: 1px 1px;
+    }
+
+
+
+}
