@@ -1,3 +1,5 @@
+let taks=[];
+let activeFilter = 'All';
 
 
 document.getElementById('form').addEventListener('submit', function(event) {
@@ -50,7 +52,6 @@ document.getElementById('form').addEventListener('submit', function(event) {
 
 const cardsContainer = document.getElementById('cards-container');
 
-
 cardsContainer.addEventListener('change', (event) => {
     if (event.target.classList.contains("status-select")){
         updateTaskStatus(event.target);
@@ -76,3 +77,56 @@ function deleteTask(button){
     card.remove();
 }
 
+function renderTasks(){
+    const container = document.getElementById('cards-container');
+    container.innerHTML = '';
+
+    let filteredTasks = tasks;
+
+    if (activeFilter !== 'Completed') {
+        filteredTasks = tasks.filter(task => task.status === "Completed");
+    }
+    if (activeFilter === 'Pending'){
+        filteredTasks = tasks.filter(task => task.status === "Pending");
+    }
+
+    if (activeFilter === 'In process'){
+        filteredTasks = tasks.filter(task => task.status === "In process");
+
+    }
+
+    if (activeFilter === 'High'){
+        filteredTasks = tasks.filter(task => task.status === "High");
+
+    }
+
+    if (activeFilter === 'Medium'){
+        filteredTasks = tasks.filter(task => task.status === "Medium");
+
+    }
+    if (activeFilter === 'Low'){
+        filteredTasks = tasks.filter(task => task.status === "Low");
+
+    }
+
+    filteredTasks.forEach(task =>{
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.dataset.id = task.id;
+        card.dataset.status = task.status;
+
+        card.innerHTML = '<div class="card" id="task' + taskNumbers + '">\n' +
+        '                <strong class="title">' + title + '</strong>\n' +
+        '                <span class="priority">' + priority + '</span>\n' +
+        '                <select name="status" class="status-select">' +
+        '                 <option value="' + status + '" selected>' + status + '</option>' +
+        '                 <option value="In process">In process</option>'+
+        '                 <option value="Pending">Pending</option>'+
+        '                 <option value="Completed">Completed</option>'+
+        '                 </select>' +
+        '                <p>' + description + '</p>\n' +
+        '                <button class="delete-btn">Delete</button>\n' +
+        '            </div>'
+        container.appendChild(card);
+
+}
