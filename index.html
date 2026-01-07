@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,8 +8,31 @@
 
     <link rel="icon" href="" type="image/png">
 </head>
-
 <body>
+
+  <div  class="taskflow">
+      <form id="form" action="">
+        <h2 class="header">TaskFlow</h2>
+
+        <label class="label-title" for="title">Title:</label>
+        <input name="title" id="title" type="text" class="input-title">
+
+          <label for="priority" class="label-priority"></label>
+          <select class="input-priority" name="priority" id="priority">
+              <option value="#" selected>Priority</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+          </select>
+
+        <label class="label-desc" for="description">Description:</label>
+        <textarea name="description" id="description" class="input-desc"></textarea>
+
+        <button class="btn-create" type="submit">Create</button>
+
+      </form>
+  </div>
+
     <div class="filter">
         <button id="btn">
             Filter by ▾
@@ -23,62 +45,61 @@
     </div>
 
 
-    <section class="container">
+    <section id="task-container" class="container">
 
-        <div class="cards">
-            <div class="card">
-                <strong class="title">Title</strong>
-                <span class="priority">Priority</span>
-                <button id="status">Status</button>
-                <p>Description..</p>
-                <button id="delete">Delete</button>
-            </div>
-            <div class="card">
-                <strong class="title">Title</strong>
-                <span class="priority">Priority</span>
-                <button class="status-btn">Status</button>
-                <p>Description..</p>
-                <button class="delete-btn">Delete</button>
-            </div>
-            <div class="card">
-                <strong class="title">Title</strong>
-                <span class="priority">Priority</span>
-                <button id="status">Status</button>
-                <p>Description..</p>
-                <button id="delete">Delete</button>
-            </div>
-            <div class="card">
-                <strong class="title">Title</strong>
-                <span class="priority">Priority</span>
-                <button id="status">Status</button>
-                <p>Description..</p>
-                <button id="delete">Delete</button>
-            </div>
-            <div class="card">
-                <strong class="title">Title</strong>
-                <span class="priority">Priority</span>
-                <button id="status">Status</button>
-                <p>Description..</p>
-                <button id="delete">Delete</button>
-            </div>
-            <div class="card">
-                <strong class="title">Title</strong>
-                <span class="priority">Priority</span>
-                <button id="status">Status</button>
-                <p>Description..</p>
-                <button id="delete">Delete</button>
-            </div>
-            <div class="more_task">
-                <p>If you want more tasks, purchase a membership <button class="btn">+</button> </p>
+        <div id="cards-container" class="cards">
+<!--            <div class="card">-->
+<!--                <strong class="title">Title</strong>-->
+<!--                <span class="priority">Priority</span>-->
+<!--                <button id="status">Status</button>-->
+<!--                <p>Description..</p>-->
+<!--                <button id="delete">Delete</button>-->
+<!--            </div>-->
+<!--            <div class="card">-->
+<!--                <strong class="title">Title</strong>-->
+<!--                <span class="priority">Priority</span>-->
+<!--                <button id="status">Status</button>-->
+<!--                <p>Description..</p>-->
+<!--                <button id="delete">Delete</button>-->
+<!--            </div>-->
+<!--            <div class="card">-->
+<!--                <strong class="title">Title</strong>-->
+<!--                <span class="priority">Priority</span>-->
+<!--                <button id="status">Status</button>-->
+<!--                <p>Description..</p>-->
+<!--                <button id="delete">Delete</button>-->
+<!--            </div>-->
+<!--            <div class="card">-->
+<!--                <strong class="title">Title</strong>-->
+<!--                <span class="priority">Priority</span>-->
+<!--                <button id="status">Status</button>-->
+<!--                <p>Description..</p>-->
+<!--                <button id="delete">Delete</button>-->
+<!--            </div>-->
+<!--            <div class="card">-->
+<!--                <strong class="title">Title</strong>-->
+<!--                <span class="priority">Priority</span>-->
+<!--                <button id="status">Status</button>-->
+<!--                <p>Description..</p>-->
+<!--                <button id="delete">Delete</button>-->
+<!--            </div>-->
+<!--            <div class="card">-->
+<!--                <strong class="title">Title</strong>-->
+<!--                <span class="priority">Priority</span>-->
+<!--                <button id="status">Status</button>-->
+<!--                <p>Description..</p>-->
+<!--                <button id="delete">Delete</button>-->
+<!--            </div>-->
+<!--            <div class="more_task">-->
+<!--                <p>If you want more tasks, purchase a membership <button class="btn">+</button> </p>-->
 
-            </div>
+<!--            </div>-->
 
         </div>
 
     </section>
 
 
-    <script src="scripts.js"></script>
+<script src="scripts.js"></script>
 </body>
-
 </html>
