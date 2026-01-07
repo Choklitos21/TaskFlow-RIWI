@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,27 +8,22 @@
 
     <link rel="icon" href="" type="image/png">
 </head>
-
 <body>
-    <div>
-        <form id="form" action="">
-            <label for="title">Title:</label>
-            <input name="title" id="title" type="text" placeholder="Title">
 
-            <label for="description">Task description:</label>
-            <textarea id="description" name="description" rows="5" cols="30" placeholder="Describe what's this task about"></textarea>
+  <div class="taskflow">
+    <h2 class="header">TaskFlow</h2>
 
-            <label for="priority"></label>
-            <select name="priority" id="priority">
-                <option value="#" selected>Priority</option>
-                <option value="High">High</option>
-                <option value="Medium">Medium</option>
-                <option value="Low">Low</option>
-            </select>
+    <label class="label-title">Title:</label>
+    <input type="text" class="input-title">
 
-            <button type="submit">Create</button>
-        </form>
-    </div>
+    <label class="label-priority">Priority:</label>
+    <input type="text" class="input-priority">
+
+    <label class="label-desc">Description:</label>
+    <textarea class="input-desc"></textarea>
+
+    <button class="btn-create">Create</button>
+  </div>
 
     <div class="filter">
         <button id="btn">
@@ -98,7 +92,6 @@
     </section>
 
 
-    <script src="scripts.js"></script>
+<script src="scripts.js"></script>
 </body>
-
 </html>
