@@ -11,7 +11,7 @@ document.getElementById('form').addEventListener('submit', function(event) {
     const title = formData.get('title');
     const description = formData.get('description');
     const priority = formData.get('priority');
-    const status = 'in process'
+    const status = 'In process'
 
     if (!title) {
         alert("Insert a title name")
@@ -25,16 +25,17 @@ document.getElementById('form').addEventListener('submit', function(event) {
     }
 
     const taskList = document.getElementById('cards-container')
+    let taskNumbers = taskList.children.length
 
     const newTask = document.createElement('div')
-    newTask.innerHTML = '<div class="card">\n' +
+    newTask.innerHTML = '<div class="card" id="task' + taskNumbers + '">\n' +
         '                <strong class="title">' + title + '</strong>\n' +
         '                <span class="priority">' + priority + '</span>\n' +
         '                <select name="status" id="status">' +
-        '                 <option value="#" selected>' + status + '</option>' +
-        '                 <option value="#" selected>High</option>'+
-        '                 <option value="#" selected>Medium</option>'+
-        '                 <option value="#" selected>Low</option>'+
+        '                 <option value="' + status + '" selected>' + status + '</option>' +
+        '                 <option value="In process">In process</option>'+
+        '                 <option value="Pending">Pending</option>'+
+        '                 <option value="Completed">Completed</option>'+
         '                 </select>' +
         '                <p>' + description + '</p>\n' +
         '                <button id="delete">Delete</button>\n' +
