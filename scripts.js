@@ -51,7 +51,7 @@ const cardsContainer = document.getElementById('cards-container');
 
 
 cardsContainer.addEventListener('change', (event) => {
-    if (event.target.classList.contains("status-select"){
+    if (event.target.classList.contains("status-select")){
         updateTaskStatus(event.target);
     }
 });
