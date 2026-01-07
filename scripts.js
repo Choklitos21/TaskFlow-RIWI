@@ -46,7 +46,13 @@ document.getElementById('form').addEventListener('submit', function(event) {
 });
 
 
-const cardsContainer = document.querySelector('.cards');
-document.querySelector('.cards')
 
-const STATUSES = ['']
+const cardsContainer = document.getElementById('cards-container');
+
+
+cardsContainer.addEventListener('change', (event) => {
+    if (event.target.classList.contains("status-select"){
+        updateTaskStatus(event.target);
+    }
+});
+
