@@ -1,6 +1,34 @@
-let taks=[];
-let activeFilter = 'All';
+let listOfTasks = []
 
+function loadTasks() {
+    // Obtener los datos del localStorage
+    const localStorageData = localStorage.getItem('listOfTasks');
+
+    if (localStorageData) { // Verificar si existen datos
+        const data = JSON.parse(localStorageData); // Convertir JSON a objeto
+        const taskList = document.getElementById('cards-container')
+
+        for (let i= 0; i < data.length; i++) {
+            const newTask = document.createElement('div')
+            newTask.innerHTML = '<div class="card" id="task' + i + '">\n' +
+                '                <strong class="title">' + data.title + '</strong>\n' +
+                '                <span class="priority">' + data.priority + '</span>\n' +
+                '                <select name="status" class="status-select">' +
+                '                 <option value="' + data.status + '" selected>' + data.status + '</option>' +
+                '                 <option value="In process">In process</option>'+
+                '                 <option value="Pending">Pending</option>'+
+                '                 <option value="Completed">Completed</option>'+
+                '                 </select>' +
+                '                <p>' + data.description + '</p>\n' +
+                '                <button class="delete-btn">Delete</button>\n' +
+                '            </div>'
+
+            taskList.appendChild(newTask)
+        }
+    }
+}
+
+window.onload = loadTasks;
 
 document.getElementById('form').addEventListener('submit', function(event) {
     // 1. Prevenir el envío por defecto
@@ -45,6 +73,17 @@ document.getElementById('form').addEventListener('submit', function(event) {
 
     taskList.appendChild(newTask)
     this.reset();
+
+    listOfTasks.push(
+        {
+            title: title,
+            description: description,
+            priority: priority,
+            status: status
+        }
+    )
+    console.log(listOfTasks)
+    localStorage.setItem('listOfTasks', JSON.stringify(listOfTasks));
 
 });
 
