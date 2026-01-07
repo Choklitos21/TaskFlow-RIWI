@@ -31,14 +31,14 @@ document.getElementById('form').addEventListener('submit', function(event) {
     newTask.innerHTML = '<div class="card" id="task' + taskNumbers + '">\n' +
         '                <strong class="title">' + title + '</strong>\n' +
         '                <span class="priority">' + priority + '</span>\n' +
-        '                <select name="status" id="status">' +
+        '                <select name="status" class="status-select">' +
         '                 <option value="' + status + '" selected>' + status + '</option>' +
         '                 <option value="In process">In process</option>'+
         '                 <option value="Pending">Pending</option>'+
         '                 <option value="Completed">Completed</option>'+
         '                 </select>' +
         '                <p>' + description + '</p>\n' +
-        '                <button id="delete">Delete</button>\n' +
+        '                <button class="delete-btn">Delete</button>\n' +
         '            </div>'
 
     taskList.appendChild(newTask)
@@ -56,4 +56,12 @@ cardsContainer.addEventListener('change', (event) => {
         updateTaskStatus(event.target);
     }
 });
+
+function updateTaskStatus(select){
+    const card = select.closest('.card');
+    const newStatus = select.value;
+
+    card.setAtrtribute('data-status', newStatus);
+}
+
 
