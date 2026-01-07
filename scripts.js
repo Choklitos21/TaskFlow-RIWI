@@ -65,3 +65,14 @@ function updateTaskStatus(select){
 }
 
 
+cardsContainer.addEventListener('click',(event)=>{
+    if (event.target.classList.contains("delete-btn")){
+        deleteTask(event.target);
+    }
+});
+
+function deleteTask(button){
+    const card = button.closest('.card');
+    card.remove();
+}
+
