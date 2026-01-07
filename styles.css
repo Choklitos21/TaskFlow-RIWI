@@ -8,9 +8,6 @@ body{
     }
 }
 
-
-
-
 .container .cards {
     display: flex;
     flex-wrap: wrap;
@@ -45,7 +42,7 @@ body{
         cursor: pointer;
 
     }
-
+}
 
 .taskflow {
   width: 600px;
@@ -107,3 +104,4 @@ body{
   cursor: pointer;
   font-weight: bold;
 }
+
