@@ -61,7 +61,7 @@ function updateTaskStatus(select){
     const card = select.closest('.card');
     const newStatus = select.value;
 
-    card.setAtrtribute('data-status', newStatus);
+    card.setAttribute('data-status', newStatus);
 }
 
 
