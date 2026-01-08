@@ -1,34 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Basic metadata -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- App title -->
   <title>TaskFlow</title>
+
+  <!-- Main stylesheet -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
+  <!-- App wrapper -->
   <main class="app">
+
+    <!-- App branding / title -->
     <header class="brand">
       <h1>TaskFlow</h1>
     </header>
 
-    <!-- Form Card -->
+    <!-- ========================= -->
+    <!-- Task creation form card -->
+    <!-- ========================= -->
     <section class="panel form-panel">
       <form id="form" action="" class="taskflow">
-        <div class="form-grid">
-          <input name="title" id="title" type="text" class="input-title" placeholder="Title" />
 
-          <select class="input-priority" name="priority" id="priority">
+        <!-- Form layout grid -->
+        <div class="form-grid">
+
+          <!-- Task title input -->
+          <input
+            name="title"
+            id="title"
+            type="text"
+            class="input-title"
+            placeholder="Title"
+          />
+
+          <!-- Priority selector -->
+          <select
+            class="input-priority"
+            name="priority"
+            id="priority"
+          >
             <option value="#" selected>Priority</option>
             <option value="High">High</option>
             <option value="Medium">Medium</option>
             <option value="Low">Low</option>
           </select>
 
-          <textarea name="description" id="description" class="input-desc" placeholder="Description"></textarea>
+          <!-- Task description -->
+          <textarea
+            name="description"
+            id="description"
+            class="input-desc"
+            placeholder="Description"
+          ></textarea>
         </div>
 
+        <!-- Create task button -->
         <button class="btn-create" type="submit">
           <span class="btn-plus">+</span>
           Create Task
@@ -36,113 +68,191 @@
       </form>
     </section>
 
-    <!-- Filter + counters bar -->
+    <!-- ========================= -->
+    <!-- Toolbar: filter + stats -->
+    <!-- ========================= -->
     <section class="panel toolbar">
+
+      <!-- Left side: filters -->
       <div class="toolbar-left">
         <span class="toolbar-label">Filter tasks:</span>
 
+        <!-- Custom filter dropdown -->
         <div class="filter-dd" id="filter-dd">
-        <button class="filter-btn" type="button" id="filter-btn" aria-haspopup="listbox" aria-expanded="false">
-            <img class="filter-btn-icon" id="filter-btn-icon" src="icons/list.png" alt="">
+
+          <!-- Dropdown trigger button -->
+          <button
+            class="filter-btn"
+            type="button"
+            id="filter-btn"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+          >
+            <img
+              class="filter-btn-icon"
+              id="filter-btn-icon"
+              src="icons/list.png"
+              alt=""
+            />
             <span id="filter-btn-text">All tasks</span>
             <span class="filter-caret">▾</span>
-        </button>
+          </button>
 
-        <div class="filter-menu" id="filter-menu" role="listbox" hidden>
+          <!-- Dropdown menu -->
+          <div
+            class="filter-menu"
+            id="filter-menu"
+            role="listbox"
+            hidden
+          >
+
+            <!-- Status filters -->
             <div class="filter-group">
-            <div class="filter-group-title">Status</div>
+              <div class="filter-group-title">Status</div>
 
-            <button class="filter-item is-active" type="button" data-value="ALL" data-icon="icons/list.png">
+              <button
+                class="filter-item is-active"
+                type="button"
+                data-value="ALL"
+                data-icon="icons/list.png"
+              >
                 <img src="icons/list.png" alt="" class="item-icon">
                 <span>All tasks</span>
                 <span class="item-check">✓</span>
-            </button>
+              </button>
 
-            <button class="filter-item" type="button" data-value="PENDING" data-icon="icons/pending.png">
+              <button
+                class="filter-item"
+                type="button"
+                data-value="PENDING"
+                data-icon="icons/pending.png"
+              >
                 <img src="icons/pending.png" alt="" class="item-icon">
                 <span>Pending</span>
                 <span class="item-check"></span>
-            </button>
+              </button>
 
-            <button class="filter-item" type="button" data-value="INPROCESS" data-icon="icons/process.png">
+              <button
+                class="filter-item"
+                type="button"
+                data-value="INPROCESS"
+                data-icon="icons/process.png"
+              >
                 <img src="icons/process.png" alt="" class="item-icon">
                 <span>In process</span>
                 <span class="item-check"></span>
-            </button>
+              </button>
 
-            <button class="filter-item" type="button" data-value="COMPLETED" data-icon="icons/completed.png">
+              <button
+                class="filter-item"
+                type="button"
+                data-value="COMPLETED"
+                data-icon="icons/completed.png"
+              >
                 <img src="icons/completed.png" alt="" class="item-icon">
                 <span>Completed</span>
                 <span class="item-check"></span>
-            </button>
+              </button>
             </div>
 
+            <!-- Priority filters -->
             <div class="filter-group">
-            <div class="filter-group-title">Priority</div>
+              <div class="filter-group-title">Priority</div>
 
-            <button class="filter-item" type="button" data-value="HIGH" data-dot="high">
+              <button
+                class="filter-item"
+                type="button"
+                data-value="HIGH"
+                data-dot="high"
+              >
                 <span class="prio-dot high"></span>
                 <span>High</span>
                 <span class="item-check"></span>
-            </button>
+              </button>
 
-            <button class="filter-item" type="button" data-value="MEDIUM" data-dot="medium">
+              <button
+                class="filter-item"
+                type="button"
+                data-value="MEDIUM"
+                data-dot="medium"
+              >
                 <span class="prio-dot medium"></span>
                 <span>Medium</span>
                 <span class="item-check"></span>
-            </button>
+              </button>
 
-            <button class="filter-item" type="button" data-value="LOW" data-dot="low">
+              <button
+                class="filter-item"
+                type="button"
+                data-value="LOW"
+                data-dot="low"
+              >
                 <span class="prio-dot low"></span>
                 <span>Low</span>
                 <span class="item-check"></span>
-            </button>
+              </button>
             </div>
+          </div>
         </div>
-    </div>
+      </div>
 
-
+      <!-- Right side: task statistics -->
       <div class="stats">
+
+        <!-- Total tasks -->
         <div class="stat-item">
-            <img src="icons/list.png" alt="All tasks" class="stat-icon">
-            <span id="tasks-total">Total: 0</span>
+          <img src="icons/list.png" alt="All tasks" class="stat-icon">
+          <span id="tasks-total">Total: 0</span>
         </div>
 
+        <!-- Pending tasks -->
         <div class="stat-item">
-            <img src="icons/pending.png" alt="Pending tasks" class="stat-icon">
-            <span id="tasks-pending">Pending: 0</span>
+          <img src="icons/pending.png" alt="Pending tasks" class="stat-icon">
+          <span id="tasks-pending">Pending: 0</span>
         </div>
 
+        <!-- In process tasks -->
         <div class="stat-item">
-            <img src="icons/process.png" alt="In process tasks" class="stat-icon">
-            <span id="tasks-process">In process: 0</span>
+          <img src="icons/process.png" alt="In process tasks" class="stat-icon">
+          <span id="tasks-process">In process: 0</span>
         </div>
 
+        <!-- Completed tasks -->
         <div class="stat-item">
-            <img src="icons/completed.png" alt="Completed tasks" class="stat-icon">
-            <span id="tasks-completed">Completed: 0</span>
+          <img src="icons/completed.png" alt="Completed tasks" class="stat-icon">
+          <span id="tasks-completed">Completed: 0</span>
         </div>
 
+        <!-- Visible tasks after filter -->
         <div class="stat-item">
-            <img src="icons/visible.png" alt="Visible tasks" class="stat-icon">
-            <span id="tasks-visible">Showing: 0 </span>
+          <img src="icons/visible.png" alt="Visible tasks" class="stat-icon">
+          <span id="tasks-visible">Showing: 0</span>
         </div>
-        </div>
-
+      </div>
     </section>
 
-    <!-- Tasks -->
+    <!-- ========================= -->
+    <!-- Task cards container -->
+    <!-- ========================= -->
     <section id="task-container" class="container">
+
+      <!-- Cards injected dynamically by JS -->
       <div id="cards-container" class="cards"></div>
 
-      <!-- Empy state -->
-      <div class="empty-state" id="empty-state" style="display:none;">
+      <!-- Empty state (shown when no tasks exist) -->
+      <div
+        class="empty-state"
+        id="empty-state"
+        style="display:none;"
+      >
         <h2>Ready to get organized?</h2>
         <p>Create your first task and start managing your workflow!</p>
       </div>
     </section>
+
   </main>
 
+  <!-- Main JavaScript file -->
   <script src="scripts.js"></script>
 </body>
 </html>

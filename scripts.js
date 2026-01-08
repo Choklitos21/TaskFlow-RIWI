@@ -22,7 +22,7 @@ document.getElementById('form').addEventListener('submit', function(event) {
     event.preventDefault();
 
     // 2. Crear un objeto FormData para obtener todos los datos
-    const formData = new FormData(this); // 'this' se refiere al formulario
+    const formData = new FormData(this);
 
     // 3. Obtener valores específicos
     const title = formData.get('title');
