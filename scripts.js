@@ -1,30 +1,13 @@
 let listOfTasks = []
+let activeFilter = 'ALL';
 
 function loadTasks() {
     // Obtener los datos del localStorage
     const localStorageData = localStorage.getItem('listOfTasks');
 
     if (localStorageData) { // Verificar si existen datos
-        const data = JSON.parse(localStorageData); // Convertir JSON a objeto
-        const taskList = document.getElementById('cards-container')
-
-        for (let i= 0; i < data.length; i++) {
-            const newTask = document.createElement('div')
-            newTask.innerHTML = '<div class="card" id="task' + i + '">\n' +
-                '                <strong class="title">' + data.title + '</strong>\n' +
-                '                <span class="priority">' + data.priority + '</span>\n' +
-                '                <select name="status" class="status-select">' +
-                '                 <option value="' + data.status + '" selected>' + data.status + '</option>' +
-                '                 <option value="In process">In process</option>'+
-                '                 <option value="Pending">Pending</option>'+
-                '                 <option value="Completed">Completed</option>'+
-                '                 </select>' +
-                '                <p>' + data.description + '</p>\n' +
-                '                <button class="delete-btn">Delete</button>\n' +
-                '            </div>'
-
-            taskList.appendChild(newTask)
-        }
+        listOfTasks = JSON.parse(localStorageData);
+        renderTasks(listOfTasks) ;// Convertir JSON a objeto
     }
 }
 
@@ -54,36 +37,19 @@ document.getElementById('form').addEventListener('submit', function(event) {
         return false
     }
 
-    const taskList = document.getElementById('cards-container')
-    let taskNumbers = taskList.children.length
-
-    const newTask = document.createElement('div')
-    newTask.innerHTML = '<div class="card" id="task' + taskNumbers + '">\n' +
-        '                <strong class="title">' + title + '</strong>\n' +
-        '                <span class="priority">' + priority + '</span>\n' +
-        '                <select name="status" class="status-select">' +
-        '                 <option value="' + status + '" selected>' + status + '</option>' +
-        '                 <option value="In process">In process</option>'+
-        '                 <option value="Pending">Pending</option>'+
-        '                 <option value="Completed">Completed</option>'+
-        '                 </select>' +
-        '                <p>' + description + '</p>\n' +
-        '                <button class="delete-btn">Delete</button>\n' +
-        '            </div>'
-
-    taskList.appendChild(newTask)
-    this.reset();
 
     listOfTasks.push(
         {
-            title: title,
-            description: description,
-            priority: priority,
-            status: status
+            title,
+            description,
+            priority,
+            status
         }
     )
     console.log(listOfTasks)
     localStorage.setItem('listOfTasks', JSON.stringify(listOfTasks));
+    applyFilter();
+    this.reset();
 
 });
 
@@ -99,9 +65,12 @@ cardsContainer.addEventListener('change', (event) => {
 
 function updateTaskStatus(select){
     const card = select.closest('.card');
+    const index = card.dataset.index;
     const newStatus = select.value;
 
-    card.setAttribute('data-status', newStatus);
+    listOfTasks[index].status = newStatus;
+    localStorage.setItem('listOfTasks', JSON.stringify(listOfTasks));
+    applyFilter();
 }
 
 
@@ -113,59 +82,71 @@ cardsContainer.addEventListener('click',(event)=>{
 
 function deleteTask(button){
     const card = button.closest('.card');
-    card.remove();
+    const index = card.dataset.index;
+
+    listOfTasks.splice(index,1);
+    localStorage.setItem('listOfTasks', JSON.stringify(listOfTasks));
+    applyFilter();
 }
 
-function renderTasks(){
+function renderTasks(TasksToRender){
     const container = document.getElementById('cards-container');
     container.innerHTML = '';
 
-    let filteredTasks = tasks;
-
-    if (activeFilter !== 'Completed') {
-        filteredTasks = tasks.filter(task => task.status === "Completed");
-    }
-    if (activeFilter === 'Pending'){
-        filteredTasks = tasks.filter(task => task.status === "Pending");
-    }
-
-    if (activeFilter === 'In process'){
-        filteredTasks = tasks.filter(task => task.status === "In process");
-
-    }
-
-    if (activeFilter === 'High'){
-        filteredTasks = tasks.filter(task => task.status === "High");
-
-    }
-
-    if (activeFilter === 'Medium'){
-        filteredTasks = tasks.filter(task => task.status === "Medium");
-
-    }
-    if (activeFilter === 'Low'){
-        filteredTasks = tasks.filter(task => task.status === "Low");
-
-    }
-
-    filteredTasks.forEach(task =>{
+    TasksToRender.forEach((task,index) => {
         const card = document.createElement('div');
         card.className = 'card';
-        card.dataset.id = task.id;
+        card.dataset.index = index;
         card.dataset.status = task.status;
+        card.innerHTML = `
+            <strong class="title">${task.title}</strong>
+            <span class="priority">${task.priority}</span>
 
-        card.innerHTML = '<div class="card" id="task' + taskNumbers + '">\n' +
-        '                <strong class="title">' + title + '</strong>\n' +
-        '                <span class="priority">' + priority + '</span>\n' +
-        '                <select name="status" class="status-select">' +
-        '                 <option value="' + status + '" selected>' + status + '</option>' +
-        '                 <option value="In process">In process</option>'+
-        '                 <option value="Pending">Pending</option>'+
-        '                 <option value="Completed">Completed</option>'+
-        '                 </select>' +
-        '                <p>' + description + '</p>\n' +
-        '                <button class="delete-btn">Delete</button>\n' +
-        '            </div>'
+            <select class="status-select">
+                <option value="In process" ${task.status === "In process" ? "selected" : ""}>In process</option>
+                <option value="Pending" ${task.status === "Pending" ? "selected" : ""}>Pending</option>
+                <option value="Completed" ${task.status === "Completed" ? "selected" : ""}>Completed</option>
+            </select>
+
+            <p>${task.description}</p>
+            <button class="delete-btn">Delete</button>
+        `;
+
         container.appendChild(card);
+    });
+
 
 }
+function applyFilter() {
+    let filteredTasks = listOfTasks;
+
+    if (activeFilter === "COMPLETED") {
+        filteredTasks = listOfTasks.filter(task => task.status === "Completed");
+    }
+
+    if (activeFilter === "PENDING") {
+        filteredTasks = listOfTasks.filter(task => task.status === "Pending");
+    }
+
+    if (activeFilter === "HIGH") {
+        filteredTasks = listOfTasks.filter(task => task.priority === "High");
+    }
+
+    if (activeFilter === "MEDIUM") {
+        filteredTasks = listOfTasks.filter(task => task.priority === "Medium");
+    }
+
+    if (activeFilter === "LOW") {
+        filteredTasks = listOfTasks.filter(task => task.priority === "Low");
+    }
+
+    renderTasks(filteredTasks);
+
+}    
+
+const filterSelect = document.getElementById('filter-select');
+
+filterSelect.addEventListener('change', (event) => {
+    activeFilter = event.target.value;
+    applyFilter();
+});
