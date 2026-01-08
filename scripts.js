@@ -36,10 +36,12 @@ document.getElementById('form').addEventListener('submit', function(event) {
     } else if (!description) {
         alert("Insert a description")
         return false
-    } else if (priority === "#") {
+    } else if (!priority) {
         alert("Choose a priority")
         return false
     }
+    console.log({ title, description, priority });
+
 
 
     listOfTasks.push({
@@ -104,22 +106,6 @@ const cardsContainer = document.getElementById('cards-container');
 });
 
 
-function updateTaskStatus(select){
-    const card = select.closest('.card');
-    const id = card.dataset.id;                 
-    const newStatus = select.value;
-    select.classList.remove("status-inprocess","status-pending","status-completed");
-    select.classList.add(statusClass(newStatus));
-
-    const taskIndex = listOfTasks.findIndex(t => t.id === id);  
-    if (taskIndex === -1) return;
-
-    listOfTasks[taskIndex].status = newStatus;  
-        localStorage.setItem('listOfTasks', JSON.stringify(listOfTasks));
-        applyFilter();
-    }
-
-
 cardsContainer.addEventListener('click',(event)=>{
     if (event.target.classList.contains("delete-btn")){
         deleteTask(event.target);
@@ -158,7 +144,9 @@ function renderTasks(TasksToRender){
         card.dataset.status = task.status;
         card.innerHTML = `
             <strong class="title">${task.title}</strong>
-            <span class="priority priority-${task.priority.toLowerCase()}">${task.priority}</span>
+            <span class="priority priority-${(task.priority || "low").toLowerCase()}">
+                ${task.priority || "LOW"}
+            </span>
 
             <p>${task.description}</p>
             <div class="status-dd" data-id="${task.id}">
@@ -218,15 +206,13 @@ function applyFilter() {
     }
 
     if (activeFilter === "HIGH") {
-        filteredTasks = listOfTasks.filter(task => task.priority === "High");
+    filteredTasks = listOfTasks.filter(task => task.priority === "HIGH");
     }
-
     if (activeFilter === "MEDIUM") {
-        filteredTasks = listOfTasks.filter(task => task.priority === "Medium");
+    filteredTasks = listOfTasks.filter(task => task.priority === "MEDIUM");
     }
-
     if (activeFilter === "LOW") {
-        filteredTasks = listOfTasks.filter(task => task.priority === "Low");
+    filteredTasks = listOfTasks.filter(task => task.priority === "LOW");
     }
 
     renderTasks(filteredTasks);
@@ -253,52 +239,88 @@ function updateTaskCounters(tasksToRender) {
     document.getElementById("tasks-visible").textContent = `Showing: ${visible}`;
 }
 
-const dd = document.getElementById("filter-dd");
-const btn = document.getElementById("filter-btn");
-const menu = document.getElementById("filter-menu");
-const btnText = document.getElementById("filter-btn-text");
-const btnIcon = document.getElementById("filter-btn-icon");
+function initDropdown(ddElement, options = {}) {
+  const btn = ddElement.querySelector(".filter-btn");
+  const menu = ddElement.querySelector(".filter-menu");
+  const btnText = ddElement.querySelector(".filter-btn-text");
+  const btnIcon = ddElement.querySelector(".filter-btn-icon");
+  const hiddenInput = ddElement.querySelector("input[type='hidden']");
 
-btn.addEventListener("click", () => {
-  const isOpen = !menu.hidden;
-  menu.hidden = isOpen;
-  btn.setAttribute("aria-expanded", String(!isOpen));
-});
+  if (!btn || !menu) return;
 
-document.addEventListener("click", (e) => {
-  if (!dd.contains(e.target)) {
-    menu.hidden = true;
-    btn.setAttribute("aria-expanded", "false");
-  }
-});
+  // Toggle open / close
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isOpen = !menu.hidden;
 
-menu.querySelectorAll(".filter-item").forEach(item => {
-  item.addEventListener("click", () => {
-    const value = item.dataset.value;
+    // close all other dropdowns
+    document.querySelectorAll(".filter-menu").forEach(m => m.hidden = true);
 
+    menu.hidden = isOpen;
+    btn.setAttribute("aria-expanded", String(!isOpen));
+  });
+
+  // Click outside → close
+  document.addEventListener("click", (e) => {
+    if (!ddElement.contains(e.target)) {
+      menu.hidden = true;
+      btn.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  // Item selection
+  menu.querySelectorAll(".filter-item").forEach(item => {
+    item.addEventListener("click", () => {
+      const value = item.dataset.value;
+      const label =
+        item.querySelector("span:nth-child(2)")?.textContent ||
+        item.textContent;
+
+      // Update visible text
+      if (btnText) btnText.textContent = label;
+
+      // Update hidden input (priority selector)
+      if (hiddenInput) hiddenInput.value = value;
+
+      // Optional callback (filter dropdown uses this)
+      if (options.onSelect) {
+        options.onSelect(item, value);
+      }
+
+      // Active state + checkmark
+      menu.querySelectorAll(".filter-item").forEach(b => b.classList.remove("is-active"));
+      item.classList.add("is-active");
+
+      menu.querySelectorAll(".item-check").forEach(c => c.textContent = "");
+      const check = item.querySelector(".item-check");
+      if (check) check.textContent = "✓";
+
+      // Close menu
+      menu.hidden = true;
+      btn.setAttribute("aria-expanded", "false");
+    });
+  });
+}
+
+const priorityDD = document.getElementById("priority-selector");
+
+initDropdown(priorityDD);
+
+const filterDD = document.getElementById("filter-dd");
+
+initDropdown(filterDD, {
+  onSelect: (item, value) => {
     activeFilter = value;
     applyFilter();
 
-    // update button text
-    btnText.textContent = item.querySelector("span:nth-child(2)")?.textContent || "All tasks";
+    const btnIcon = filterDD.querySelector(".filter-btn-icon");
 
-    // show icon for status, hide for priority 
-    if (item.dataset.icon) {
+    // Show icon for status filters
+    if (item.dataset.icon && btnIcon) {
       btnIcon.src = item.dataset.icon;
       btnIcon.style.display = "inline-block";
-    } else {
+    } else if (btnIcon) {
       btnIcon.style.display = "none";
     }
-
-    // highlight + checkmark
-    menu.querySelectorAll(".filter-item").forEach(b => b.classList.remove("is-active"));
-    item.classList.add("is-active");
-
-    menu.querySelectorAll(".item-check").forEach(c => c.textContent = "");
-    const check = item.querySelector(".item-check");
-    if (check) check.textContent = "✓";
-
-    menu.hidden = true;
-    btn.setAttribute("aria-expanded", "false");
-  });
+  }
 });
