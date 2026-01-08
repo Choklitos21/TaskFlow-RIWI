@@ -547,3 +547,134 @@ body{
 
 .status-item:hover{ background: #f1f5f9; }
 .status-item.is-active{ background: #eef2f7; }
+
+.themeSelector {
+  border: unset;
+  background-color: transparent;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+
+  img {
+    width: 40px;
+    height: auto;
+  }
+}
+
+body.dark-mode {
+  background-color: #171717;
+  color: #fff;
+
+  .form-panel {
+    background-color: #606060;
+
+    input,
+    select,
+    textarea {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    option {
+      color: white;
+      background-color: rgb(175, 175, 175);
+    }
+  }
+
+  .toolbar {
+    background-color: #606060;
+    color: white;
+
+    .stats {
+      img {
+        filter: invert(100%);
+      }
+
+      span {
+        color: white;
+      }
+    }
+    button {
+      background-color: #606060;
+      color: white;
+
+      span {
+        color: white;
+      }
+
+      img {
+        filter: invert(100%);
+      }
+    }
+
+    .filter-menu {
+      background-color: #606060;
+      color: white;
+
+      .filter-group-title{
+        color: white;
+      }
+    }
+
+  }
+
+  .themeSelector {
+    filter: invert(100%);
+  }
+
+  .card {
+    background-color: #606060;
+    color: white;
+
+    p {
+      color: white;
+    }
+
+    .status-btn {
+      background-color: #606060;
+      color: white;
+
+      span {
+        color: white;
+      }
+
+      img {
+        filter: invert(100%);
+      }
+    }
+
+    .delete-btn {
+      background-color: #d3d3d3;
+      color: #f63636;
+    }
+
+    .status-menu {
+      background-color: #606060;
+      color: white;
+    }
+
+    .status-item.is-active{
+      background-color: #606060;
+      color: white;
+
+      img {
+        filter: invert(100%);
+      }
+
+      span {
+        color: white;
+      }
+    }
+
+    .status-item {
+      background-color: #606060;
+      color: white;
+
+      img {
+        filter: invert(100%);
+      }
+    }
+  }
+
+}
+
