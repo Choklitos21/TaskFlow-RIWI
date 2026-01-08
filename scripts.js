@@ -1,6 +1,11 @@
 let listOfTasks = []
 let activeFilter = 'ALL';
 
+const bodyTheme = document.body
+if (localStorage.getItem('theme') === 'dark') {
+    bodyTheme.classList.add('dark-mode');
+}
+
 function loadTasks() {
   const localStorageData = localStorage.getItem('listOfTasks');
 
@@ -324,3 +329,14 @@ initDropdown(filterDD, {
     }
   }
 });
+const themeSelector = document.getElementById('themeSelector')
+
+themeSelector.addEventListener('click', () => {
+    bodyTheme.classList.toggle('dark-mode');
+
+    if (bodyTheme.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
+    }
+})
