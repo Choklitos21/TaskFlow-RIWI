@@ -39,17 +39,53 @@
             placeholder="Title"
           />
 
-          <!-- Priority selector -->
-          <select
-            class="input-priority"
-            name="priority"
-            id="priority"
-          >
-            <option value="#" selected>Priority</option>
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-          </select>
+          <!-- Priority picker -->
+            <div class="filter-dd" id="priority-selector">
+
+              <!-- Fake button (visual only) -->
+              <button
+                class="filter-btn"
+                type="button"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+              >
+                <span class="filter-btn-text">Select Priority</span>
+                <span class="filter-caret">▾</span>
+              </button>
+
+              <input type="hidden" name="priority" id="priority" value="">
+
+
+              <!-- Dropdown menu -->
+              <div class="filter-menu" role="listbox" hidden>
+
+                <div class="filter-group">
+                  <div class="filter-group-title">Priority</div>
+
+                  <button class="filter-item" type="button" data-value="HIGH">
+                    <span class="prio-dot high"></span>
+                    <span>High</span>
+                    <span class="item-check"></span>
+                  </button>
+
+                  <button class="filter-item" type="button" data-value="MEDIUM">
+                    <span class="prio-dot medium"></span>
+                    <span>Medium</span>
+                    <span class="item-check"></span>
+                  </button>
+
+                  <button class="filter-item" type="button" data-value="LOW">
+                    <span class="prio-dot low"></span>
+                    <span>Low</span>
+                    <span class="item-check"></span>
+                  </button>
+                </div>
+              </div>
+
+            
+            </div>
+          
+          
 
           <!-- Task description -->
           <textarea
@@ -82,21 +118,20 @@
 
           <!-- Dropdown trigger button -->
           <button
-            class="filter-btn"
-            type="button"
-            id="filter-btn"
-            aria-haspopup="listbox"
-            aria-expanded="false"
-          >
-            <img
-              class="filter-btn-icon"
-              id="filter-btn-icon"
-              src="icons/list.png"
-              alt=""
-            />
-            <span id="filter-btn-text">All tasks</span>
-            <span class="filter-caret">▾</span>
-          </button>
+              class="filter-btn"
+              type="button"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+            >
+              <img
+                class="filter-btn-icon"
+                src="icons/list.png"
+                alt=""
+              />
+              <span class="filter-btn-text">All tasks</span>
+              <span class="filter-caret">▾</span>
+            </button>
+
 
           <!-- Dropdown menu -->
           <div
