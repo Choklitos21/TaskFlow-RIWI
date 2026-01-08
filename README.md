@@ -2,7 +2,7 @@
 
 **A Lightweight Task Management Web Application (Vanilla JavaScript)**
 
-TaskFlow is a front-end task management web application designed as a functional prototype for small teams. It demonstrates clean DOM manipulation, event-driven architecture, and maintainable UI design, implemented entirely with **Vanilla JavaScript**, **HTML5**, **CSS3**, and **Bootstrap**, without relying on modern JavaScript frameworks.
+TaskFlow is a front-end task management web application designed as a functional prototype. It demonstrates clean DOM manipulation, event-driven architecture, and maintainable UI design, implemented entirely with **Vanilla JavaScript**, **HTML5**, and **CSS3**.
 
 The project showcases a complete **CRUD workflow**, dynamic UI rendering, centralized state management, and client-side persistence using the **LocalStorage API**.
 
@@ -12,7 +12,7 @@ The project showcases a complete **CRUD workflow**, dynamic UI rendering, centra
 
 TaskFlow enables users to create, manage, filter, and track tasks through an intuitive and responsive interface. Each task can be assigned a priority and workflow status, dynamically filtered, updated, or removed — all without page reloads.
 
-The application was developed as part of an academic challenge focused on:
+The application was developed  focused on:
 - Real DOM manipulation
 - Event handling
 - Code clarity and maintainability
@@ -107,21 +107,6 @@ The application was developed as part of an academic challenge focused on:
 
 ---
 
-## 🧠 Technical Highlights
-
-- Centralized task state (`listOfTasks`)
-- Single render pipeline:
-  - `applyFilter → renderTasks`
-- Event delegation for dynamically generated elements
-- Clear separation of concerns:
-  - `index.html` → Structure
-  - `styles.css` → Presentation
-  - `scripts.js` → Logic & state
-- Accessible custom dropdowns using ARIA attributes
-- Consistent naming conventions and readable, maintainable functions
-
----
-
 ## 📂 Project Structure
 
 ```
@@ -155,11 +140,11 @@ TaskFlow/
 
 ## 👥 Authors
 
-Developed as a collaborative academic project with role-based responsibilities, including:
+Developed as a collaborative academic project with role-based responsibilities:
 
-- Technical leadership
-- Application logic & state management
-- UI/UX design
+- Technical leader
+- Application logic & state manager
+- UI/UX designer
 - Testing & documentation
 
 ---
