@@ -34,14 +34,22 @@
   </div>
 
     <div class="filter">
-        <button id="btn">
-            Filter by ▾
-            <ul>
-                <li>Alta</li>
-                <li>Media</li>
-                <li>Baja</li>
-            </ul>
-        </button>
+        <label for="filter-select">Filter tasks:</label>
+
+        <select id="filter-select">
+            <option value="ALL">All tasks</option>
+
+            <optgroup label="Status">
+                <option value="COMPLETED">Completed</option>
+                <option value="PENDING">Pending</option>
+            </optgroup>
+
+            <optgroup label="Priority">
+                <option value="HIGH">High</option>
+                <option value="MEDIUM">Medium</option>
+                <option value="LOW">Low</option>
+            </optgroup>
+        </select>
     </div>
 
 
