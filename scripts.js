@@ -7,7 +7,7 @@ function loadTasks() {
 
     if (localStorageData) { // Verificar si existen datos
         listOfTasks = JSON.parse(localStorageData);
-        renderTasks(listOfTasks) ;// Convertir JSON a objeto
+        renderTasks(listOfTasks) ;
     }
 }
 
@@ -65,12 +65,16 @@ cardsContainer.addEventListener('change', (event) => {
 
 function updateTaskStatus(select){
     const card = select.closest('.card');
-    const index = card.dataset.index;
+    const id = card.dataset.id;
     const newStatus = select.value;
 
-    listOfTasks[index].status = newStatus;
-    localStorage.setItem('listOfTasks', JSON.stringify(listOfTasks));
-    applyFilter();
+    const task = listOfTasks.find(task => task.id === id);
+
+    if (task) {
+        task.status = newStatus;
+        localStorage.setItem('listOfTasks', JSON.stringify(listOfTasks));
+        applyFilter();
+    }
 }
 
 
@@ -156,3 +160,23 @@ filterSelect.addEventListener('change', (event) => {
     activeFilter = event.target.value;
     applyFilter();
 });
+
+
+function updateTaskCounters(tasksToRender) {
+    const total = listOfTasks.length;
+    const inProcess = listOfTasks.filter(task => task.status === "In process").length;
+    const pending = listOfTasks.filter(task => task.status === "Pending").length;
+    const completed = listOfTasks.filter(task => task.status === "Completed").length;
+
+    const totalSpan = document.getElementById('tasks-total');
+    const visibleSpan = document.getElementById('tasks-visible');
+
+    if (totalSpan) {
+        totalSpan.textContent = `Total: ${total} | In process: ${inProcess} | Pending: ${pending} | Completed: ${completed}`;
+    }
+
+    if (visibleSpan) {
+        const visible = tasksToRender ? tasksToRender.length : 0;
+        visibleSpan.textContent = `Showing: ${visible} task${visible === 1 ? '' : 's'}`;
+    }
+}
