@@ -148,32 +148,35 @@ body{
 /* Toolbar (filter + stats) */
 .toolbar{
   max-width: 980px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
   margin: 0 auto 26px;
   padding: 16px 18px;
   display: flex;
   gap: 18px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .toolbar-left{
   display: flex;
   align-items: center;
   gap: 12px;
-  flex-wrap: wrap;
 }
-.toolbar-label{
-  color: var(--muted);
-  font-size: 14px;
-}
+
+
 
 
 /* Stats text */
 .stats{
+  margin-left: auto;       
   display: flex;
+  align-items: center;
   gap: 14px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;       
   justify-content: flex-end;
+  white-space: nowrap;
 }
 
 .stat{
@@ -224,18 +227,24 @@ body{
   background: white;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 18px 18px 14px;
+  padding: 22px 22px 18px;
   box-shadow: 0 10px 24px rgba(15,23,42,.08);
   display: grid;
-  gap: 10px;
+  gap: 12px;
   min-height: 190px;
+  position: relative; 
+  padding-top: 22px; 
 }
 
 .card .title{
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: -0.01em;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  padding-right: 110px;
+  margin-bottom: 4px;
 }
+
 
 .card .priority{
   display: inline-flex;
@@ -245,15 +254,17 @@ body{
   border-radius: 999px;
   font-weight: 800;
   font-size: 12px;
-  background: #f1f5f9;
+  position: absolute; 
+  top: 16px;           
+  right: 16px;
 }
+
 
 .card .priority::before{
   content: "";
   width: 8px; height: 8px;
   border-radius: 999px;
   margin-right: 8px;
-  background: var(--medium);
 }
 
 
@@ -267,36 +278,61 @@ body{
 .priority-low::before { background: var(--low); }
 
 
-.status-select{
-  border: 1px solid #cbd5e1;
-  border-radius: 12px;
-  padding: 10px 12px;
-  background: #fff;
-  font-weight: 650;
-  cursor: pointer;
-}
+
 
 .card p{
-  margin: 0;
   color: var(--muted);
   font-size: 14px;
   line-height: 1.5;
+  margin-top: 2px;
+  margin-bottom: 6px;
+  justify-self: center;
 }
 
 .delete-btn{
-  margin-top: 8px;
-  border: none;
-  background: transparent;
-  color: #475569;
-  font-weight: 700;
+ 
+  justify-self: center; 
+  align-self: end;
+  margin-top: 10px;
+
+
+  width: auto;
+  min-width: 130px;
+  padding: 10px 14px;
+  border-radius: 12px;
+
+  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  background: #fff;
+  border: 1px solid #fca5a5;       /* soft red border */
+  color: #dc2626;                  /* nicer red */
+
+  font-weight: 800;
+  font-size: 14px;
   cursor: pointer;
-  padding: 10px 0;
-  width: fit-content;
+  transition: all .18s ease;
 }
 
 .delete-btn:hover{
-  color: var(--high);
+  background: #fff1f2;             /* soft red tint */
+  border-color: #f87171;
+  box-shadow: 0 10px 18px rgba(220, 38, 38, .10);
 }
+
+.delete-btn:active{
+  transform: translateY(1px);
+}
+
+.delete-icon{
+  width: 16px;
+  height: 16px;
+  opacity: .9;
+}
+
 
 /* Empty state */
 .empty-state{
@@ -435,3 +471,79 @@ body{
 .prio-dot.high{ background: var(--high); }
 .prio-dot.medium{ background: var(--medium); }
 .prio-dot.low{ background: var(--low); }
+
+
+/* ===== Card Status Dropdown (custom like filter) ===== */
+.status-dd{ justify-self: center; position:relative;}
+
+.status-btn{
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  height: 40px;                 
+  padding: 0 14px;
+  border-radius: 999px;         
+
+  background: #f8fafc;         
+  border: 1px solid #e2e8f0;    
+  cursor: pointer;
+
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.status-btn:hover{
+  border-color: #94a3b8;
+  box-shadow: 0 10px 22px rgba(15,23,42,.08);
+}
+
+.status-btn:focus{
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0,184,148,.14);
+  border-color: rgba(0,184,148,.60);
+}
+
+.status-btn-icon{
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.status-caret{
+  margin-left: auto;
+  color: var(--muted);
+}
+
+.status-menu{
+  position: absolute;
+  left: 0;
+  right: 0;
+
+  background: #fff;
+  border: 1px solid #e6e8ee;
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(15,23,42,.14);
+  padding: 8px;
+  z-index: 40;
+}
+
+.status-item{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 22px 1fr 18px;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 10px;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 700;
+  text-align: left;
+}
+
+.status-item:hover{ background: #f1f5f9; }
+.status-item.is-active{ background: #eef2f7; }
