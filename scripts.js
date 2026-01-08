@@ -65,16 +65,12 @@ cardsContainer.addEventListener('change', (event) => {
 
 function updateTaskStatus(select){
     const card = select.closest('.card');
-    const id = card.dataset.id;
+    const index = card.dataset.index;
     const newStatus = select.value;
 
-    const task = listOfTasks.find(task => task.id === id);
-
-    if (task) {
-        task.status = newStatus;
-        localStorage.setItem('listOfTasks', JSON.stringify(listOfTasks));
-        applyFilter();
-    }
+    listOfTasks[index].status = newStatus;
+    localStorage.setItem('listOfTasks', JSON.stringify(listOfTasks));
+    applyFilter();
 }
 
 
@@ -121,9 +117,11 @@ function renderTasks(TasksToRender){
         `;
 
         container.appendChild(card);
+
+        
     });
 
-
+    updateTaskCounters(TasksToRender);
 }
 
 
