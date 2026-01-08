@@ -55,6 +55,8 @@ document.getElementById('form').addEventListener('submit', function(event) {
 
 
 
+
+
 const cardsContainer = document.getElementById('cards-container');
 
 cardsContainer.addEventListener('change', (event) => {
