@@ -2,13 +2,17 @@ let listOfTasks = []
 let activeFilter = 'ALL';
 
 function loadTasks() {
-    // Obtener los datos del localStorage
-    const localStorageData = localStorage.getItem('listOfTasks');
+  const localStorageData = localStorage.getItem('listOfTasks');
 
-    if (localStorageData) { // Verificar si existen datos
-        listOfTasks = JSON.parse(localStorageData);
-        renderTasks(listOfTasks) ;
-    }
+  if (localStorageData) {
+    listOfTasks = JSON.parse(localStorageData);
+
+    
+    listOfTasks = listOfTasks.map(t => t.id ? t : { ...t, id: Date.now().toString() + Math.random() });
+    localStorage.setItem('listOfTasks', JSON.stringify(listOfTasks));
+
+    applyFilter(); 
+  }
 }
 
 window.onload = loadTasks;
@@ -38,22 +42,20 @@ document.getElementById('form').addEventListener('submit', function(event) {
     }
 
 
-    listOfTasks.push(
-        {
-            title,
-            description,
-            priority,
-            status
-        }
-    )
+    listOfTasks.push({
+        id: Date.now().toString(),   
+        title,
+        description,
+        priority,
+        status
+    });
+
     console.log(listOfTasks)
     localStorage.setItem('listOfTasks', JSON.stringify(listOfTasks));
     applyFilter();
     this.reset();
 
 });
-
-
 
 
 
@@ -67,13 +69,16 @@ cardsContainer.addEventListener('change', (event) => {
 
 function updateTaskStatus(select){
     const card = select.closest('.card');
-    const index = card.dataset.index;
+    const id = card.dataset.id;                 
     const newStatus = select.value;
 
-    listOfTasks[index].status = newStatus;
-    localStorage.setItem('listOfTasks', JSON.stringify(listOfTasks));
-    applyFilter();
-}
+    const taskIndex = listOfTasks.findIndex(t => t.id === id);  
+    if (taskIndex === -1) return;
+
+    listOfTasks[taskIndex].status = newStatus;  
+        localStorage.setItem('listOfTasks', JSON.stringify(listOfTasks));
+        applyFilter();
+    }
 
 
 cardsContainer.addEventListener('click',(event)=>{
@@ -103,6 +108,7 @@ function renderTasks(TasksToRender){
         const card = document.createElement('div');
         card.className = 'card';
         card.dataset.index = index;
+        card.dataset.id = task.id;
         card.dataset.status = task.status;
         card.innerHTML = `
             <strong class="title">${task.title}</strong>
