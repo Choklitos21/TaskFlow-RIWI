@@ -82,11 +82,15 @@ cardsContainer.addEventListener('click',(event)=>{
 
 function deleteTask(button){
     const card = button.closest('.card');
-    const index = card.dataset.index;
+    const id = card.dataset.id;
 
-    listOfTasks.splice(index,1);
-    localStorage.setItem('listOfTasks', JSON.stringify(listOfTasks));
-    applyFilter();
+    const taskIndex = listOfTasks.findIndex(task => task.id === id);
+
+    if (taskIndex !== -1) {
+        listOfTasks.splice(taskIndex, 1);
+        localStorage.setItem('listOfTasks', JSON.stringify(listOfTasks));
+        applyFilter();
+    }
 }
 
 function renderTasks(TasksToRender){
@@ -117,6 +121,8 @@ function renderTasks(TasksToRender){
 
 
 }
+
+
 function applyFilter() {
     let filteredTasks = listOfTasks;
 
