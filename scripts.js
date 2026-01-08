@@ -1,3 +1,10 @@
+function abrir(){
+  document.getElementById("alerta").style.display = "flex";
+}
+
+function cerrar(){
+  document.getElementById("alerta").style.display = "none";
+}
 
 
 document.getElementById('form').addEventListener('submit', function(event) {
@@ -44,3 +51,5 @@ document.getElementById('form').addEventListener('submit', function(event) {
     this.reset();
 
 });
+
+
