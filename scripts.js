@@ -112,7 +112,8 @@ function renderTasks(TasksToRender){
         card.dataset.status = task.status;
         card.innerHTML = `
             <strong class="title">${task.title}</strong>
-            <span class="priority">${task.priority}</span>
+            <span class="priority priority-${task.priority.toLowerCase()}">${task.priority}</span>
+
 
             <select class="status-select">
                 <option value="In process" ${task.status === "In process" ? "selected" : ""}>In process</option>
@@ -158,14 +159,7 @@ function applyFilter() {
 
     renderTasks(filteredTasks);
 
-}    
-
-const filterSelect = document.getElementById('filter-select');
-
-filterSelect.addEventListener('change', (event) => {
-    activeFilter = event.target.value;
-    applyFilter();
-});
+}
 
 
 function updateTaskCounters(tasksToRender) {
@@ -174,15 +168,65 @@ function updateTaskCounters(tasksToRender) {
     const pending = listOfTasks.filter(task => task.status === "Pending").length;
     const completed = listOfTasks.filter(task => task.status === "Completed").length;
 
-    const totalSpan = document.getElementById('tasks-total');
-    const visibleSpan = document.getElementById('tasks-visible');
+    
+    
+    document.getElementById("tasks-total").textContent = `Total: ${total}`;
+    document.getElementById("tasks-process").textContent = `In process: ${inProcess}`;
+    document.getElementById("tasks-pending").textContent = `Pending: ${pending}`;
+    document.getElementById("tasks-completed").textContent = `Completed: ${completed}`;
 
-    if (totalSpan) {
-        totalSpan.textContent = `Total: ${total} | In process: ${inProcess} | Pending: ${pending} | Completed: ${completed}`;
-    }
 
-    if (visibleSpan) {
-        const visible = tasksToRender ? tasksToRender.length : 0;
-        visibleSpan.textContent = `Showing: ${visible} task${visible === 1 ? '' : 's'}`;
-    }
+
+   const visible = tasksToRender ? tasksToRender.length : 0;
+    document.getElementById("tasks-visible").textContent = `Showing: ${visible}`;
 }
+
+const dd = document.getElementById("filter-dd");
+const btn = document.getElementById("filter-btn");
+const menu = document.getElementById("filter-menu");
+const btnText = document.getElementById("filter-btn-text");
+const btnIcon = document.getElementById("filter-btn-icon");
+
+btn.addEventListener("click", () => {
+  const isOpen = !menu.hidden;
+  menu.hidden = isOpen;
+  btn.setAttribute("aria-expanded", String(!isOpen));
+});
+
+document.addEventListener("click", (e) => {
+  if (!dd.contains(e.target)) {
+    menu.hidden = true;
+    btn.setAttribute("aria-expanded", "false");
+  }
+});
+
+menu.querySelectorAll(".filter-item").forEach(item => {
+  item.addEventListener("click", () => {
+    const value = item.dataset.value;
+
+    activeFilter = value;
+    applyFilter();
+
+    // update button text
+    btnText.textContent = item.querySelector("span:nth-child(2)")?.textContent || "All tasks";
+
+    // show icon for status, hide for priority 
+    if (item.dataset.icon) {
+      btnIcon.src = item.dataset.icon;
+      btnIcon.style.display = "inline-block";
+    } else {
+      btnIcon.style.display = "none";
+    }
+
+    // highlight + checkmark
+    menu.querySelectorAll(".filter-item").forEach(b => b.classList.remove("is-active"));
+    item.classList.add("is-active");
+
+    menu.querySelectorAll(".item-check").forEach(c => c.textContent = "");
+    const check = item.querySelector(".item-check");
+    if (check) check.textContent = "✓";
+
+    menu.hidden = true;
+    btn.setAttribute("aria-expanded", "false");
+  });
+});
