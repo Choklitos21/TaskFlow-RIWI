@@ -654,6 +654,18 @@ body.dark-mode {
       }
     }
 
+    .filter-item:hover {
+    background-color: #707070;
+  }
+
+    .filter-item.is-active {
+    background-color: #808080;
+  }
+
+  .filter-item {
+    background-color: transparent;
+    color: white;
+  }
    
 
   }
