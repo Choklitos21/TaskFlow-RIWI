@@ -581,6 +581,44 @@ body.dark-mode {
     }
   }
 
+  /* Priority dropdown dark mode */
+  .form-panel .filter-btn {
+    background-color: #606060;
+    color: white;
+    border-color: #888;
+  }
+
+  .form-panel .filter-btn span {
+    color: white;
+  }
+
+  .form-panel .filter-menu {
+    background-color: #606060;
+    color: white;
+    border-color: #888;
+  }
+
+  .form-panel .filter-group-title {
+    color: white;
+  }
+
+  .form-panel .filter-item {
+    background-color: transparent;
+    color: white;
+  }
+
+  .form-panel .filter-item:hover {
+    background-color: #707070;
+  }
+
+  .form-panel .filter-item.is-active {
+    background-color: #808080;
+  }
+
+  .form-panel .item-check {
+    color: white;
+  }
+  
   .toolbar {
     background-color: #606060;
     color: white;
@@ -615,6 +653,8 @@ body.dark-mode {
         color: white;
       }
     }
+
+   
 
   }
 
